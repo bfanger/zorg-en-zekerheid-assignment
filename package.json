@@ -10,7 +10,9 @@
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint --max-warnings=0",
     "format": "eslint --fix && prettier --write .",
-    "test": "playwright test"
+    "test": "pnpm run test:vitest && pnpm run test:playwright",
+    "test:playwright": "playwright test",
+    "test:vitest": "vitest run"
   },
   "dependencies": {
     "next": "16.3.8",
@@ -34,6 +36,7 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.0"
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.3"
   }
 }

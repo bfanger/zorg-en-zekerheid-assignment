@@ -12,4 +12,14 @@ Open http://localhost:5173/ in your browser.
 
 ## Design choices
 
-Chose Next.js because that is part of the stack Zorg en Zekerheid is working with.
+Chose Next.js because that is part of the Zorg en Zekerheid tech stack.
+
+Valibot for validating the session data, this prevent version conflicts or manipulation via devtools
+
+sessionStorage for storing the intermediate state of the form, this prevent state from one tab to affect another tab and lets the user compare configurations.
+
+## Things I would change
+
+- I'd load the data.json in a server component and handle the loading / error state via Next.js
+- Move the naw step as the last step of the flow for a better UX.
+- I'd place all steps onto one page, naw as the last section.

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { InsuranceItem } from "@/lib/useData";
 import Button from "./Button";
+import Link from "next/link";
 
 type Props = {
   items: InsuranceItem[];
@@ -46,12 +47,13 @@ export default function InsuranceSelector({
             <p className="text-sm">{item.description}</p>
           </div>
           <div className="ml-auto">
-            <div>&euro; {item.price.toFixed(2)}</div>
+            <div>&euro;&nbsp;{item.price.toFixed(2)}</div>
             <div className="text-xs">per maand</div>
           </div>
         </label>
       ))}
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between">
+        <Link href="?step=naw">Terug</Link>
         <Button>Volgende stap</Button>
       </div>
     </form>

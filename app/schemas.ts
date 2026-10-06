@@ -1,4 +1,11 @@
-import { object, string, type InferOutput } from "valibot";
+import {
+  fallback,
+  literal,
+  object,
+  string,
+  union,
+  type InferOutput,
+} from "valibot";
 
 export type PersonalInfo = InferOutput<typeof personalInfoSchema>;
 export const personalInfoSchema = object({
@@ -10,3 +17,9 @@ export const personalInfoSchema = object({
   postcode: string(),
   city: string(),
 });
+
+export type Step = InferOutput<typeof stepSchema>;
+export const stepSchema = fallback(
+  union([literal("naw"), literal("insurance"), literal("addons")]),
+  "naw",
+);

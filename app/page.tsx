@@ -8,19 +8,20 @@ import { personalInfoSchema } from "./schemas";
 import { useSessionValues } from "@/lib/useSessionValues";
 import { useData } from "@/lib/useData";
 import { useBrowser } from "@/lib/useBrowser";
-
-const stepSchema = v.fallback(
-  v.union([v.literal("naw"), v.literal("insurance"), v.literal("addons")]),
-  "naw",
-);
+import { maxStep } from "@/lib/maxStep";
 
 export default function Home() {
   const router = useRouter();
   const browser = useBrowser();
   const searchParams = useSearchParams();
-  const [values, setValues] = useSessionValues("personal", personalInfoSchema);
+  const [personalInfo, setPersonalInfo] = useSessionValues(
+    "personal",
+    personalInfoSchema,
+  );
+  const [basic, setBasic] = useSessionValues("basic", v.string());
   const result = useData();
-  const step = v.parse(stepSchema, searchParams.get("step"));
+  const step = maxStep(searchParams.get("step"), personalInfo, basic);
+
   if (!browser) {
     return <div>Bezig met laden...</div>;
   }
@@ -29,10 +30,10 @@ export default function Home() {
       {step === "naw" && (
         <NawForm
           onSubmit={(naw) => {
-            setValues(naw);
+            setPersonalInfo(naw);
             router.push("/?step=insurance");
           }}
-          defaultsValues={values}
+          defaultsValues={personalInfo}
         />
       )}
       {step === "insurance" && (
@@ -48,8 +49,9 @@ export default function Home() {
           {result.status === "success" && (
             <InsuranceSelector
               items={result.data.basicInsurance}
+              defaultValue={basic}
               onSelect={(item) => {
-                console.info(item);
+                setBasic(item.id);
                 router.push("/?step=addons");
               }}
             />

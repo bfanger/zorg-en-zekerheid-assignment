@@ -30,8 +30,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${garnettSans.variable} h-full font-medium antialiased`}
     >
-      <body className="flex min-h-full flex-col">
-        <header className="container mx-auto p-3">
+      <body className="flex min-h-full flex-col px-3">
+        <header className="container mx-auto mb-2 p-3 md:mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.svg"

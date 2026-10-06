@@ -26,7 +26,7 @@ export default function NawForm({
         void handleSubmit(onSubmit)(event);
       }}
     >
-      <div className="grid grid-cols-[min-content_1fr] gap-3 [&>label]:text-right">
+      <div className="flex flex-col gap-3 md:grid md:grid-cols-[min-content_1fr] md:[&>label]:text-right">
         <TextInput
           label="Voornaam"
           required
