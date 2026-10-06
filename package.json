@@ -9,14 +9,19 @@
     "lint:prettier": "prettier --check .",
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint --max-warnings=0",
-    "format": "eslint --fix && prettier --write ."
+    "format": "eslint --fix && prettier --write .",
+    "test": "playwright test"
   },
   "dependencies": {
     "next": "16.3.8",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-hook-form": "^7.89.0",
+    "tailwind-merge": "^3.7.0",
+    "valibot": "^1.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
@@ -24,6 +29,7 @@
     "concurrently": "^10.0.5",
     "eslint": "^10.12.0",
     "eslint-config-next": "16.3.8",
+    "eslint-plugin-only-warn": "^1.2.1",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
