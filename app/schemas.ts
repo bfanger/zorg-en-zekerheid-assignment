@@ -1,13 +1,12 @@
 import { object, string, type InferOutput } from "valibot";
 
+export type PersonalInfo = InferOutput<typeof personalInfoSchema>;
 export const personalInfoSchema = object({
-  firstName: string(),
-  lastName: string(),
-  birthDate: string(),
+  firstname: string(),
+  lastname: string(),
+  birthdate: string(),
   email: string(),
   street: string(),
   postcode: string(),
   city: string(),
 });
-
-export type PersonalInfo = InferOutput<typeof personalInfoSchema>;

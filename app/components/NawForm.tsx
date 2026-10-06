@@ -22,35 +22,32 @@ export default function NawForm({
 
   return (
     <form
-      className="mx-auto w-full max-w-150"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={(event) => {
+        void handleSubmit(onSubmit)(event);
+      }}
     >
       <div className="grid grid-cols-[min-content_1fr] gap-3 [&>label]:text-right">
         <TextInput
           label="Voornaam"
-          id="firstName"
           required
-          {...register("firstName", { required: true })}
+          {...register("firstname", { required: true })}
         />
 
         <TextInput
           label="Achternaam"
-          id="lastName"
           required
-          {...register("lastName", { required: true })}
+          {...register("lastname", { required: true })}
         />
 
         <TextInput
           label="Geboortedatum"
-          id="birthDate"
           type="date"
           required
-          {...register("birthDate", { required: true })}
+          {...register("birthdate", { required: true })}
         />
 
         <TextInput
           label="E-mailadres"
-          id="email"
           type="email"
           required
           {...register("email", { required: true })}
@@ -58,7 +55,6 @@ export default function NawForm({
 
         <TextInput
           label="Straat"
-          id="street"
           required
           {...register("street", { required: true })}
         />
@@ -66,7 +62,6 @@ export default function NawForm({
           <div>
             <TextInput
               label="Postcode"
-              id="postcode"
               required
               {...register("postcode", { required: true })}
             />
@@ -74,7 +69,6 @@ export default function NawForm({
           <div>
             <TextInput
               label="Stad"
-              id="city"
               required
               {...register("city", { required: true })}
             />

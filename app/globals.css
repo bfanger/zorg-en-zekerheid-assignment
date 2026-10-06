@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: var(--font-garnett);
   --color-brand: #0054ad;
   --color-brand-hover: #00438a;
 }

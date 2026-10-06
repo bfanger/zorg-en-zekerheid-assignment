@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import garnett from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const garnettSans = garnett({
+  src: [
+    {
+      path: "../public/fonts/Garnett-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Garnett-MediumItalic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+  ],
+  variable: "--font-garnett",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,9 +28,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${garnettSans.variable} h-full font-medium antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <header className="container mx-auto p-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.svg"
+            alt="Zorg en Zekerheid - Zorgverzekeraar"
+            className="h-18"
+          />
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
