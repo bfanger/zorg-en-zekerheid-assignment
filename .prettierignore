@@ -1,0 +1,5 @@
+importmap.js
+pnpm-lock.yaml
+.agents/
+.pnpm-store/
+coverage/
