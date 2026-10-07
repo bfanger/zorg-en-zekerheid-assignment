@@ -1,18 +1,28 @@
 "use client";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as v from "valibot";
 import NawForm from "./components/NawForm";
 import InsuranceSelector from "./components/InsuranceSelector";
 import Warning from "./components/Warning";
 import AddonsForm from "./components/AddonsForm";
+import Spinner from "./components/Spinner";
 import { PersonalInfo, personalInfoSchema } from "./schemas";
 import { useSessionValues } from "@/lib/useSessionValues";
 import { Addon, Plan, useData } from "@/lib/useData";
 import { useBrowser } from "@/lib/useBrowser";
 import { maxStep } from "@/lib/maxStep";
 
-export default function Home() {
+export default function HomePage() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <HomePageContent />
+    </Suspense>
+  );
+}
+
+function HomePageContent() {
   const router = useRouter();
   const browser = useBrowser();
   const searchParams = useSearchParams();
@@ -47,7 +57,7 @@ export default function Home() {
     !browser ||
     (result.status === "loading" && (stepParam === null || stepParam === "naw"))
   ) {
-    return <div className="animate-pulse text-center">Bezig met laden...</div>;
+    return <Spinner />;
   }
   if (result.status === "error") {
     return (
