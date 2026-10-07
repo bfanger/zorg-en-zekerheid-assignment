@@ -3,11 +3,18 @@
 import { useEffect, useState } from "react";
 
 export type TypedResponse = {
-  basicInsurance: InsuranceItem[];
-  additionalInsurance: InsuranceItem[];
+  basicInsurance: Plan[];
+  additionalInsurance: Addon[];
 };
 
-export type InsuranceItem = {
+export type Plan = {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+};
+
+export type Addon = {
   id: string;
   name: string;
   price: number;

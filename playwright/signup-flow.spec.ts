@@ -27,4 +27,19 @@ test("Sign up flow", async ({ page }) => {
       page.getByRole("textbox", { name: "E-mailadres" }),
     ).toHaveValue("jan@example.com");
   });
+
+  await test.step("Step 2: select plan", async () => {
+    await page.getByRole("radio", { name: /Standaard/ }).check();
+    await page.getByRole("button", { name: "Volgende stap" }).click();
+  });
+
+  await test.step("Step 3: select addons", async () => {
+    await page.getByRole("checkbox", { name: /Tandarts/ }).check();
+    await page.getByRole("checkbox", { name: /Reizen/ }).check();
+    await page.getByRole("button", { name: "Voltooien" }).click();
+  });
+
+  await test.step("Thanks you page", async () => {
+    await expect(page.getByRole("heading", { name: /Bedankt/ })).toBeVisible();
+  });
 });

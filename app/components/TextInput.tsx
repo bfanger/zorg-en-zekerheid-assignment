@@ -3,7 +3,6 @@ import { useId, type InputHTMLAttributes } from "react";
 type Props = {
   label: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "label" | "className">;
-
 export default function TextInput({ label, type = "text", ...rest }: Props) {
   const autoId = useId();
   const id = rest.id ?? autoId;

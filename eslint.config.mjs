@@ -24,6 +24,7 @@ export default defineConfig([
       react: { version: packageJson.dependencies.react },
     },
     rules: {
+      eqeqeq: ["warn", "smart"],
       "prefer-template": "warn",
       "object-shorthand": "warn",
       "react/no-unknown-property": "warn",

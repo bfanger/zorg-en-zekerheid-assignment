@@ -1,32 +1,49 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import type { PersonalInfo } from "../schemas";
+import * as v from "valibot";
+import { personalInfoSchema, type PersonalInfo } from "../schemas";
 import TextInput from "./TextInput";
 import Button from "./Button";
 
 type Props = {
-  defaultsValues?: PersonalInfo;
+  defaultValues?: PersonalInfo;
   onSubmit: (value: PersonalInfo) => void;
 };
 /**
  * Naw (Naam, Adres en Woonplaats) step
  */
-export default function NawForm({
-  defaultsValues: defaultsValues,
-  onSubmit,
-}: Props) {
+export default function NawForm({ defaultValues, onSubmit }: Props) {
   const { register, handleSubmit } = useForm<PersonalInfo>({
-    defaultValues: defaultsValues,
+    defaultValues,
   });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function validate(values: PersonalInfo) {
+    const result = v.safeParse(personalInfoSchema, values);
+    if (!result.success) {
+      setErrorMessage(
+        result.issues[0]?.message ?? "Ingevoerde gegevens zijn ongeldig",
+      );
+      return;
+    }
+    setErrorMessage("");
+    onSubmit(result.output);
+  }
 
   return (
     <form
       onSubmit={(event) => {
-        void handleSubmit(onSubmit)(event);
+        void handleSubmit(validate)(event);
       }}
     >
-      <div className="flex flex-col gap-3 md:grid md:grid-cols-[min-content_1fr] md:[&>label]:text-right">
+      {errorMessage && (
+        <p className="col-span-2 bg-red-900 p-3 text-center text-white">
+          {errorMessage}
+        </p>
+      )}
+      <div className="flex flex-col gap-3 md:grid md:grid-cols-[min-content_1fr] md:[&>label]:self-center md:[&>label]:text-right">
         <TextInput
           label="Voornaam"
           required
@@ -75,7 +92,7 @@ export default function NawForm({
           </div>
         </div>
       </div>
-      <div className="mt-6 flex justify-end">
+      <div className="mt-6 flex items-center justify-end">
         <Button type="submit">Volgende stap</Button>
       </div>
     </form>

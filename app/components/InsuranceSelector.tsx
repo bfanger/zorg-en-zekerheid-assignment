@@ -1,22 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import type { InsuranceItem } from "@/lib/useData";
+import type { Plan } from "@/lib/useData";
 import Button from "./Button";
 import Link from "next/link";
 
 type Props = {
-  items: InsuranceItem[];
+  plans: Plan[];
   defaultValue?: string;
-  onSelect: (item: InsuranceItem) => void;
+  onSelect: (item: Plan) => void;
 };
-
 export default function InsuranceSelector({
-  items,
+  plans,
   defaultValue,
   onSelect,
 }: Props) {
-  const [selected, setSelected] = useState<InsuranceItem["id"] | undefined>(
+  const [selected, setSelected] = useState<Plan["id"] | undefined>(
     defaultValue,
   );
 
@@ -25,35 +24,37 @@ export default function InsuranceSelector({
       className="flex flex-col gap-4"
       onSubmit={(e) => {
         e.preventDefault();
-        const item = items.find((i) => i.id === selected);
+        const item = plans.find((i) => i.id === selected);
         if (item) {
           onSelect(item);
         }
       }}
     >
-      {items.map((item) => (
-        <label key={item.id} className="flex items-start gap-2">
+      {plans.map((plan) => (
+        <label key={plan.id} className="flex items-start gap-2">
           <input
             className="mt-1.5"
             type="radio"
             name="insurance"
-            value={item.id}
+            value={plan.id}
             required
-            checked={selected === item.id}
-            onChange={() => setSelected(item.id)}
+            checked={selected === plan.id}
+            onChange={() => setSelected(plan.id)}
           />
           <div>
-            <h3 className="text-lg">{item.name}</h3>
-            <p className="text-sm">{item.description}</p>
+            <h3 className="text-lg">{plan.name}</h3>
+            <p className="text-sm text-muted">{plan.description}</p>
           </div>
           <div className="ml-auto">
-            <div>&euro;&nbsp;{item.price.toFixed(2)}</div>
+            <div>&euro;&nbsp;{plan.price.toFixed(2)}</div>
             <div className="text-xs">per maand</div>
           </div>
         </label>
       ))}
-      <div className="flex items-center justify-between">
-        <Link href="?step=naw">Terug</Link>
+      <div className="mt-8 flex items-center justify-between">
+        <Link href="?step=naw" className="text-muted hover:text-black">
+          Terug
+        </Link>
         <Button>Volgende stap</Button>
       </div>
     </form>

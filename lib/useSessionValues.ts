@@ -1,21 +1,21 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { BaseIssue, parse, type BaseSchema, type InferOutput } from "valibot";
+import * as v from "valibot";
 
 export function useSessionValues<
-  T extends BaseSchema<unknown, unknown, BaseIssue<unknown>>,
+  T extends v.BaseSchema<unknown, unknown, v.BaseIssue<unknown>>,
 >(
   key: string,
   schema: T,
-): [InferOutput<T> | undefined, (values: InferOutput<T> | undefined) => void] {
-  const [state, setState] = useState<InferOutput<T> | undefined>(() => {
+): [v.InferOutput<T> | undefined, (values: v.InferOutput<T>) => void] {
+  const [state, setState] = useState<v.InferOutput<T> | undefined>(() => {
     try {
       const json = sessionStorage.getItem(key);
       if (json === null) {
         return undefined;
       }
-      return parse(schema, JSON.parse(json));
+      return v.parse(schema, JSON.parse(json));
     } catch (err) {
       console.warn(err);
       return undefined;
@@ -23,9 +23,9 @@ export function useSessionValues<
   });
 
   const setValues = useCallback(
-    (values: InferOutput<T>) => {
+    (values: v.InferOutput<T>) => {
       try {
-        const verified = parse(schema, values);
+        const verified = v.parse(schema, values);
         setState(verified);
         sessionStorage.setItem(key, JSON.stringify(verified));
       } catch (err) {

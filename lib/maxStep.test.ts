@@ -11,16 +11,23 @@ const personalInfo = {
   city: "Utrecht",
 };
 
+const plan = {
+  id: "basis",
+  name: "Basis",
+  price: 145.45,
+  description: "Essentiële ziektekosten dekking met maximale eigenrisico",
+};
+
 describe("maxStep", () => {
   it("fall back to 'naw' for unknown step", () => {
     expect(maxStep("bogus")).toBe("naw");
-    expect(maxStep(null, personalInfo, "basic")).toBe("naw");
+    expect(maxStep(null, personalInfo, plan)).toBe("naw");
   });
 
   it("returns the wanted step when there is full progress", () => {
-    expect(maxStep("naw", personalInfo, "basic")).toBe("naw");
-    expect(maxStep("insurance", personalInfo, "basic")).toBe("insurance");
-    expect(maxStep("addons", personalInfo, "basic")).toBe("addons");
+    expect(maxStep("naw", personalInfo, plan)).toBe("naw");
+    expect(maxStep("insurance", personalInfo, plan)).toBe("insurance");
+    expect(maxStep("addons", personalInfo, plan)).toBe("addons");
   });
 
   it("caps the step at 'insurance' when basic info is missing", () => {
@@ -30,8 +37,8 @@ describe("maxStep", () => {
   });
 
   it("caps the step at 'naw' when personal info is missing", () => {
-    expect(maxStep("naw", undefined, "basic")).toBe("naw");
-    expect(maxStep("insurance", undefined, "basic")).toBe("naw");
-    expect(maxStep("addons", undefined, "basic")).toBe("naw");
+    expect(maxStep("naw", undefined, plan)).toBe("naw");
+    expect(maxStep("insurance", undefined, plan)).toBe("naw");
+    expect(maxStep("addons", undefined, plan)).toBe("naw");
   });
 });

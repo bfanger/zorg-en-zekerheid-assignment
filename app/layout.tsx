@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import garnett from "next/font/local";
+import Link from "next/link";
 import "./globals.css";
 
 const garnettSans = garnett({
@@ -27,17 +28,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="nl"
       className={`${garnettSans.variable} h-full font-medium antialiased`}
     >
       <body className="flex min-h-full flex-col px-3">
         <header className="container mx-auto mb-2 p-3 md:mb-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.svg"
-            alt="Zorg en Zekerheid - Zorgverzekeraar"
-            className="h-18"
-          />
+          <Link href="/">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.svg"
+              alt="Zorg en Zekerheid - Zorgverzekeraar"
+              className="h-18"
+            />
+          </Link>
         </header>
         {children}
       </body>
