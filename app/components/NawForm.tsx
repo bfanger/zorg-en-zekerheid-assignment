@@ -6,6 +6,7 @@ import * as v from "valibot";
 import { personalInfoSchema, type PersonalInfo } from "../schemas";
 import TextInput from "./TextInput";
 import Button from "./Button";
+import Warning from "./Warning";
 
 type Props = {
   defaultValues?: PersonalInfo;
@@ -38,11 +39,7 @@ export default function NawForm({ defaultValues, onSubmit }: Props) {
         void handleSubmit(validate)(event);
       }}
     >
-      {errorMessage && (
-        <p className="col-span-2 bg-red-900 p-3 text-center text-white">
-          {errorMessage}
-        </p>
-      )}
+      <Warning message={errorMessage} className="col-span-2" />
       <div className="flex flex-col gap-3 md:grid md:grid-cols-[min-content_1fr] md:[&>label]:self-center md:[&>label]:text-right">
         <TextInput
           label="Voornaam"

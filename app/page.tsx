@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import * as v from "valibot";
 import NawForm from "./components/NawForm";
 import InsuranceSelector from "./components/InsuranceSelector";
+import Warning from "./components/Warning";
 import AddonsForm from "./components/AddonsForm";
 import { PersonalInfo, personalInfoSchema } from "./schemas";
 import { useSessionValues } from "@/lib/useSessionValues";
@@ -50,9 +51,7 @@ export default function Home() {
   }
   if (result.status === "error") {
     return (
-      <div>
-        Excuses, er is een probleem opgetreden bij het inladen van de opties
-      </div>
+      <Warning message="Excuses, er is een probleem opgetreden bij het inladen van de opties" />
     );
   }
   return (
